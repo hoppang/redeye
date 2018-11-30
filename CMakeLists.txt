@@ -1,0 +1,6 @@
+# CMAKE_MINIMUM_REQUIRED( VERSION 3.10 )
+PROJECT( redeye )
+
+ADD_EXECUTABLE( hello test.cc )
+TARGET_LINK_LIBRARIES(hello fltk)
+TARGET_LINK_LIBRARIES(hello fltk_images)
