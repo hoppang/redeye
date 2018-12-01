@@ -4,7 +4,8 @@
 
 int main(int argc, char** argv)
 {
-	auto mf = std::make_shared<MainForm>();
-	mf->init();
-	mf->run();
+	auto mf = new MainForm;
+	mf->init(argc, argv);
+
+	return mf->run();
 }
