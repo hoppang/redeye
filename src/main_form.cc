@@ -26,7 +26,9 @@ void MainForm::init(int argc, char **argv)
 	_win->fullscreen();
 	_win->begin();
 	{
-		auto imgview = new Fl_Box(0, 0, 1920, 1080);
+		auto width = Fl::w();
+		auto height = Fl::h();
+		auto imgview = new Fl_Box(0, 0, width, height);
 		auto img = new Fl_JPEG_Image("test1.jpg");
 		imgview->image(img);
 		imgview->redraw();
