@@ -28,10 +28,10 @@ void MainForm::init(int argc, char **argv)
 	{
 		auto width = Fl::w();
 		auto height = Fl::h();
-		auto imgview = new Fl_Box(0, 0, width, height);
+		_imgview = new Fl_Box(0, 0, width, height);
 		auto img = new Fl_JPEG_Image("test1.jpg");
-		imgview->image(img);
-		imgview->redraw();
+		_imgview->image(img);
+		_imgview->redraw();
 
 		auto box = new Fl_Box(20, 40, 200, 100, "Hello, world!");
 		box->box(FL_UP_BOX);
@@ -49,6 +49,12 @@ void MainForm::init(int argc, char **argv)
 int MainForm::run()
 {
 	return Fl::run();
+}
+
+void MainForm::set_image_data(unsigned char *data)
+{
+	auto img = new Fl_JPEG_Image("name", data);
+	_imgview->image(img);
 }
 
 void fake_btn_cb(Fl_Widget *widget, void *data)
