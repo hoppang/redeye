@@ -9,6 +9,8 @@
 #include <FL/Fl_JPEG_Image.H>
 #include <FL/Fl_Widget.H>
 
+#include "../inc/magickwand_image.h"
+
 MainForm::MainForm()
 {
 
@@ -51,10 +53,13 @@ int MainForm::run()
 	return Fl::run();
 }
 
-void MainForm::set_image_data(unsigned char *data)
+void MainForm::set_image_data(uint8_t *data, size_t data_length)
 {
-	auto img = new Fl_JPEG_Image("name", data);
-	_imgview->image(img);
+	auto img = std::make_shared<MagickWandImage>(data, data_length);
+	img->shrink(_imgview->w(), _imgview->h());
+
+	auto fl_imag = new Fl_JPEG_Image("name", img->get_blob());
+	_imgview->image(fl_imag);
 }
 
 void fake_btn_cb(Fl_Widget *widget, void *data)

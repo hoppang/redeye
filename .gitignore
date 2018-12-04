@@ -1,2 +1,7 @@
 output/
 *.cbz
+*.png
+*.jpg
+test_*
+study_*
+.vscode

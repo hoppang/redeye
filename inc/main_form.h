@@ -12,7 +12,7 @@ public:
 	MainForm();
 	void init(int argc, char **argv);
 	int run();
-	void set_image_data(unsigned char *data);
+	void set_image_data(uint8_t *data, size_t data_length);
 
 	void real_btn_cb(Fl_Widget* widget, void*);
 
