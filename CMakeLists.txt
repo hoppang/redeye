@@ -4,7 +4,9 @@ PROJECT( redeye )
 find_package(ImageMagick COMPONENTS MagickWand)
 
 include_directories(${ImageMagick_INCLUDE_DIRS})
-#set(CMAKE_CXX_FLAGS $(pkg-config --cflags MagickWand))
+
+add_definitions(-DMAGICKCORE_HDRI_ENABLE=0)
+add_definitions(-DMAGICKCORE_QUANTUM_DEPTH=16)
 
 ADD_EXECUTABLE(redeye redeye.cc src/main_form.cc src/cbzfile.cc src/magickwand_image.cc)
 

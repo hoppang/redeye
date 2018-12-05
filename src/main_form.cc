@@ -55,10 +55,7 @@ int MainForm::run()
 
 void MainForm::set_image_data(uint8_t *data, size_t data_length)
 {
-	auto img = std::make_shared<MagickWandImage>(data, data_length);
-	img->shrink(_imgview->w(), _imgview->h());
-
-	auto fl_imag = new Fl_JPEG_Image("name", img->get_blob());
+	auto fl_imag = new Fl_JPEG_Image("name", data);
 	_imgview->image(fl_imag);
 }
 

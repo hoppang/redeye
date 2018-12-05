@@ -5,7 +5,6 @@
 #include "inc/magickwand_image.h"
 
 #include <memory>
-#include <wand/magick_wand.h>
 
 int main(int argc, char** argv)
 {

@@ -48,8 +48,8 @@ size_t MagickWandImage::get_blob_size() const
 
 void MagickWandImage::shrink(int desired_w, int desired_h)
 {
-	auto w = MagickGetImageWidth(_mw);
-	auto h = MagickGetImageHeight(_mw);
+	int w = MagickGetImageWidth(_mw);
+	int h = MagickGetImageHeight(_mw);
 
 	printf("w %d h %d dw %d dh %d\n", w, h, desired_w, desired_h);
 
@@ -62,4 +62,6 @@ void MagickWandImage::shrink(int desired_w, int desired_h)
 	auto resize_factor = std::max(resize_w_factor, resize_h_factor);
 	MagickResizeImage(_mw, w / resize_factor, h / resize_factor,
 		LanczosFilter, 1);
+	
+	printf("result wh: %f %f\n", w / resize_factor, h / resize_factor);
 }
