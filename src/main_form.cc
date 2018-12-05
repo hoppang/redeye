@@ -3,7 +3,6 @@
 #include <memory>
 
 #include <FL/Fl.H>
-#include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_JPEG_Image.H>
@@ -11,9 +10,9 @@
 
 #include "../inc/magickwand_image.h"
 
-MainForm::MainForm()
+MainForm::MainForm(int w, int h, const char *title)
+: Fl_Window(w, h, title)
 {
-
 }
 
 void MainForm::real_btn_cb(Fl_Widget* widget, void*)
@@ -24,9 +23,8 @@ void MainForm::real_btn_cb(Fl_Widget* widget, void*)
 
 void MainForm::init(int argc, char **argv)
 {
-	_win = new Fl_Window(500, 500);
-	_win->fullscreen();
-	_win->begin();
+	this->fullscreen();
+	this->begin();
 	{
 		auto width = Fl::w();
 		auto height = Fl::h();
@@ -44,8 +42,8 @@ void MainForm::init(int argc, char **argv)
 		auto btn = new Fl_Button(240, 40, 200, 100, "Byeeee");
 		btn->callback((Fl_Callback*)fake_btn_cb, (void*)this);
 	}
-	_win->end();
-	_win->show(argc, argv);
+	this->end();
+	this->show(argc, argv);
 }
 
 int MainForm::run()
@@ -63,4 +61,15 @@ void fake_btn_cb(Fl_Widget *widget, void *data)
 {
 	auto obj = reinterpret_cast<MainForm*>(data);
 	obj->real_btn_cb(widget, nullptr);
+}
+
+int MainForm::handle(int event)
+{
+	switch(event) {
+		case FL_MOUSEWHEEL:
+			printf("mouse wheel\n");
+			break;
+		default:
+			return Fl_Window::handle(event);
+	}
 }

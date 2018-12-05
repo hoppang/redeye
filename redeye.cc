@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 {
 	MagickWandGenesis();
 
-	auto mf = new MainForm;
+	auto mf = new MainForm(300, 300, "Redeye");
 	mf->init(argc, argv);
 
 	std::shared_ptr<CBZFile> cbz;
