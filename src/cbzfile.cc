@@ -19,7 +19,7 @@ CBZFile::~CBZFile()
 bool CBZFile::go_next()
 {
 	auto num_entries = zip_get_num_entries(_arc, 0);
-	if(_cursor >= num_entries + 1)
+	if(_cursor + 1 >= num_entries)
 		return false;
 	else {
 		_cursor++;
@@ -43,7 +43,6 @@ bool CBZFile::load(const std::string& filename)
 
 std::vector<uint8_t> CBZFile::get_current_data() const
 {
-	printf("cursor: %d\n", _cursor);
 	return get_data(_cursor);
 }
 
