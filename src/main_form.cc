@@ -9,6 +9,7 @@
 #include <FL/Fl_Widget.H>
 
 #include "../inc/magickwand_image.h"
+#include "../inc/cbzfile.h"
 
 MainForm::MainForm(int w, int h, const char *title)
 : Fl_Window(w, h, title)
@@ -17,7 +18,6 @@ MainForm::MainForm(int w, int h, const char *title)
 
 void MainForm::real_btn_cb(Fl_Widget* widget, void*)
 {
-	printf("HAHA\n");
 	delete Fl::first_window();
 }
 
@@ -43,7 +43,7 @@ void MainForm::init(int argc, char **argv)
 		btn->callback((Fl_Callback*)fake_btn_cb, (void*)this);
 	}
 	this->end();
-	this->show(argc, argv);
+	this->show();
 }
 
 int MainForm::run()
@@ -51,8 +51,35 @@ int MainForm::run()
 	return Fl::run();
 }
 
+bool MainForm::load_cbz(char *filename)
+{
+	_cbz = std::make_shared<CBZFile>(filename);
+	if(_cbz == nullptr)
+		return false;
+	else
+		return true;
+}
+
+void MainForm::set_current_image()
+{
+	auto picdata = _cbz->get_current_data();
+	unsigned char *uc = &picdata[0];
+
+	auto pic = std::make_shared<MagickWandImage>(picdata);
+	auto width = w();
+	auto height = h();
+	if(this->fullscreen_active()) {
+		width = Fl::w();
+		height = Fl::h();
+	}
+	pic->shrink(width, height);
+	set_image_data(pic->get_blob(), pic->get_blob_size());
+	_imgview->redraw();
+}
+
 void MainForm::set_image_data(uint8_t *data, size_t data_length)
 {
+	delete _imgview->image();
 	auto fl_imag = new Fl_JPEG_Image("name", data);
 	_imgview->image(fl_imag);
 }
@@ -67,7 +94,14 @@ int MainForm::handle(int event)
 {
 	switch(event) {
 		case FL_MOUSEWHEEL:
-			printf("mouse wheel\n");
+		{
+			auto dy = Fl::event_dy();
+			printf("mouse wheel %d\n", dy);
+			if(dy > 0) {
+				_cbz->go_next();
+				set_current_image();
+			}
+		}
 			break;
 		default:
 			return Fl_Window::handle(event);

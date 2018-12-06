@@ -62,6 +62,4 @@ void MagickWandImage::shrink(int desired_w, int desired_h)
 	auto resize_factor = std::max(resize_w_factor, resize_h_factor);
 	MagickResizeImage(_mw, w / resize_factor, h / resize_factor,
 		LanczosFilter, 1);
-	
-	printf("result wh: %f %f\n", w / resize_factor, h / resize_factor);
 }

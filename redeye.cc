@@ -12,22 +12,18 @@ int main(int argc, char** argv)
 
 	auto mf = new MainForm(300, 300, "Redeye");
 	mf->init(argc, argv);
-
-	std::shared_ptr<CBZFile> cbz;
 	if(argc == 2) {
-		cbz = std::make_shared<CBZFile>(argv[1]);
+		if(mf->load_cbz(argv[1]) == false) {
+			printf("failed to load %s\n", argv[1]);
+			return -1;
+		}
+		printf("bbb\n");
+		mf->set_current_image();
 	}
 	else {
-		cbz = std::make_shared<CBZFile>("test1.cbz");
+		printf("usage: %s [cbz_filename]\n", argv[0]);
+		return 0;
 	}
-	auto picdata = cbz->get_data(0);
-	unsigned char *uc = &picdata[0];
-
-	auto pic = std::make_shared<MagickWandImage>(picdata);
-	pic->shrink(1920, 1080);
-	mf->set_image_data(pic->get_blob(), pic->get_blob_size());
-
-	// mf->set_image_data(uc);
 
 	return mf->run();
 }

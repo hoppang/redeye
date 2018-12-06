@@ -7,13 +7,24 @@
 #include "../inc/cbzfile.h"
 
 CBZFile::CBZFile(const std::string& filename)
-: _arc(nullptr)
+: _arc(nullptr), _cursor(0)
 {
 	load(filename);
 }
 
 CBZFile::~CBZFile()
 {
+}
+
+bool CBZFile::go_next()
+{
+	auto num_entries = zip_get_num_entries(_arc, 0);
+	if(_cursor >= num_entries + 1)
+		return false;
+	else {
+		_cursor++;
+		return true;
+	}
 }
 
 bool CBZFile::load(const std::string& filename)
@@ -26,6 +37,12 @@ bool CBZFile::load(const std::string& filename)
 			, filename.c_str(), err);
 		return false;
 	}
+}
+
+std::vector<uint8_t> CBZFile::get_current_data() const
+{
+	printf("cursor: %d\n", _cursor);
+	return get_data(_cursor);
 }
 
 std::vector<uint8_t> CBZFile::get_data(int entry_index) const
