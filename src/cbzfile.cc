@@ -37,6 +37,8 @@ bool CBZFile::load(const std::string& filename)
 			, filename.c_str(), err);
 		return false;
 	}
+
+	return true;
 }
 
 std::vector<uint8_t> CBZFile::get_current_data() const
@@ -53,7 +55,7 @@ std::vector<uint8_t> CBZFile::get_data(int entry_index) const
 
 	const int BUFFER_SIZE = 10240;
 	char buf[BUFFER_SIZE];
-	auto sum = 0;
+	size_t sum = 0;
 
 	std::vector<uint8_t> data;
 	while(sum != zs.size) {
@@ -63,10 +65,5 @@ std::vector<uint8_t> CBZFile::get_data(int entry_index) const
 	}
 
 	return data;
-}
-
-const uint8_t *CBZFile::get_data(const std::string& entry_name) const
-{
-
 }
 

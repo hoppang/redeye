@@ -19,7 +19,6 @@ public:
 
 	std::vector<uint8_t> get_current_data() const;
 	std::vector<uint8_t> get_data(int entry_index) const;
-	const uint8_t *get_data(const std::string& entry_name) const;
 
 	bool go_next();
 
