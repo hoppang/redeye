@@ -101,12 +101,13 @@ int MainForm::handle(int event)
 			if(accu_dy > 1 || (accu_dy == 0 && dy > 0)) {
 				accu_dy = 0;
 				_cbz->go_next();
+				set_current_image();
 			}
 			else if(accu_dy < -1 || (accu_dy == 0 && dy < 0)) {
 				accu_dy = 0;
 				_cbz->go_prev();
+				set_current_image();
 			}
-			set_current_image();
 		}
 			break;
 		default:
