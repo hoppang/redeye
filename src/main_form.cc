@@ -92,19 +92,21 @@ void fake_btn_cb(Fl_Widget *widget, void *data)
 
 int MainForm::handle(int event)
 {
+	static int accu_dy = 0;
 	switch(event) {
 		case FL_MOUSEWHEEL:
 		{
 			auto dy = Fl::event_dy();
-			printf("mouse wheel %d\n", dy);
-			if(dy > 0) {
+			accu_dy += dy;
+			if(accu_dy > 1 || (accu_dy == 0 && dy > 0)) {
+				accu_dy = 0;
 				_cbz->go_next();
-				set_current_image();
 			}
-			else if(dy < 0) {
+			else if(accu_dy < -1 || (accu_dy == 0 && dy < 0)) {
+				accu_dy = 0;
 				_cbz->go_prev();
-				set_current_image();
 			}
+			set_current_image();
 		}
 			break;
 		default:
