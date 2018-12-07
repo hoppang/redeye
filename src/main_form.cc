@@ -101,6 +101,10 @@ int MainForm::handle(int event)
 				_cbz->go_next();
 				set_current_image();
 			}
+			else if(dy < 0) {
+				_cbz->go_prev();
+				set_current_image();
+			}
 		}
 			break;
 		default:

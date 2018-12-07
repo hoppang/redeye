@@ -27,6 +27,17 @@ bool CBZFile::go_next()
 	}
 }
 
+bool CBZFile::go_prev()
+{
+	auto num_entries = zip_get_num_entries(_arc, 0);
+	if(_cursor == 0)
+		return false;
+	else {
+		_cursor--;
+		return true;
+	}
+}
+
 bool CBZFile::load(const std::string& filename)
 {
 	int err;

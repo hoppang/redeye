@@ -21,6 +21,7 @@ public:
 	std::vector<uint8_t> get_data(int entry_index) const;
 
 	bool go_next();
+	bool go_prev();
 
 private:
 	std::string _filename;
