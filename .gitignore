@@ -1,4 +1,6 @@
 output/
+release/
+debug/
 *.cbz
 *.png
 *.jpg

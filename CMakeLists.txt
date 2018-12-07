@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 3.10 )
 PROJECT( redeye )
 
+set(CMAKE_CXX_STANDARD 11)
+
 find_package(PkgConfig)
 find_package(ImageMagick COMPONENTS MagickWand)
 
