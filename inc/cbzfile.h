@@ -17,6 +17,7 @@ public:
 	virtual ~CBZFile();
 	bool load(const std::string& filename);
 
+	int get_current_index() const;
 	std::vector<uint8_t> get_current_data() const;
 	std::vector<uint8_t> get_data(int entry_index) const;
 

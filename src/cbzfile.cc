@@ -52,6 +52,11 @@ bool CBZFile::load(const std::string& filename)
 	return true;
 }
 
+int CBZFile::get_current_index() const
+{
+	return _cursor;
+}
+
 std::vector<uint8_t> CBZFile::get_current_data() const
 {
 	return get_data(_cursor);
